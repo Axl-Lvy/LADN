@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-=xtkohgqv4lmgh%!+-yb--r&f3%u%*)bw^#e$uryh5tyl+2w7%'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['.vercel.app', '.now.sh', '127.0.0.1']
 EMAIL_HOST = 'sandbox.smtp.mailtrap.io'
