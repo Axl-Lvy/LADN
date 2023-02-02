@@ -1,0 +1,19 @@
+# Here is the list of default users. To change it,
+# use the same template : on each line, mail then
+# password then group.
+
+firstreader@gmail.com
+bonjourreader
+reader
+
+firsannotator@gmail.com
+bonjourannotator
+annotator
+
+firstvalidator@gmail.com
+bonjourvalidator
+validator
+
+firstadmin@gmail.com
+bonjouradmin
+admin
