@@ -220,10 +220,13 @@ def Search(request: HttpRequest):
                     sequences = sequences.filter(sequence__contains=s)
                 sequences = sequences.filter(
                     sequence__regex='.*'+'.*'.join(splitSearch)+'.*')
+    paginator = Paginator(sequences, 5)
+    pageObj = paginator.get_page(page)
     params = {
         "form": form,
         "description": description,
-        "sequences": sequences[:50],
+        "sequences": sequences,
+        "page_obj": pageObj,
     }
 
     return render(request, 'bacterial_genome_annotation/search.html', params)
