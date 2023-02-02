@@ -17,7 +17,7 @@ class Command(BaseCommand):
     def handle(self, *args, **kwargs):
         # Import data from fasta files
         bacteriaNamesList = []
-        relativePath = dirname(__file__) + '/../../../../data/'
+        relativePath = dirname(__file__) + '/../../../data/'
         allSequences = []
         allAnnotations = []
         
@@ -55,7 +55,7 @@ class Command(BaseCommand):
     def handleOld(self, *args, **kwargs):
         # Import data from fasta files
         bacteriaNamesList = []
-        relativePath = dirname(__file__) + '/../../../../data/'
+        relativePath = dirname(__file__) + '/../../../data/'
         for fileName in listdir(relativePath):
             # Find bacteria names from file names
             if (not fileName.endswith('s.fa')) and (not fileName.endswith('p.fa')) and fileName.endswith('.fa'):
