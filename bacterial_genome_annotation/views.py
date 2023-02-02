@@ -220,12 +220,12 @@ def Search(request: HttpRequest):
                     sequences = sequences.filter(sequence__contains=s)
                 sequences = sequences.filter(
                     sequence__regex='.*'+'.*'.join(splitSearch)+'.*')
-    paginator = Paginator(sequences, 50)
+    paginator = Paginator(sequences[:100], 50)
     pageObj = paginator.get_page(page)
     params = {
         "form": form,
         "description": description,
-        "sequences": sequences,
+        "sequences": sequences[:100],
         "page_obj": pageObj,
     }
 
