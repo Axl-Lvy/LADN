@@ -559,7 +559,7 @@ def Search(request: HttpRequest):
                     sequences = sequences.filter(sequence__contains=s)
                 sequences = sequences.filter(
                     sequence__regex='.*' + '.*'.join(splitSearch) + '.*')
-    paginator = Paginator(sequences, 50)
+    paginator = Paginator(sequences, 5)
     pageObj = paginator.get_page(page)
     params = {
         "typeForm": typeForm,
