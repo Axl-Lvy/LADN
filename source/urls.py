@@ -2,49 +2,46 @@
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/4.1/topics/http/urls/
-Examples:
-Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  path('', views.home, name='home')
-Class-based views
-    1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
-Including another URLconf
-    1. Import the include() function: from django.urls import include, path
-    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, include, re_path
+from django.urls import path, include
 from bacterial_genome_annotation import views
 from django.conf.urls.static import static
 from django.conf import settings
-import django.views.static
 
 app_name = 'bacterial_genome_annotation'
 
 # Admin url
 urlpatterns = [
     path('admin/', admin.site.urls, name='admin'),
-]
+    ]
 
 # Base url
 urlpatterns.extend([
-    path('', views.home, name="home"),
-    path('search/', views.Search, name="search"),
-    path('alignement/', views.alignement, name="alignement"),
+    # path('', views.home, name="home"),
+    path('', views.Search, name="search"),
+    path('Help/', views.help, name="Help"),
     path('annoter/', views.ANNOT, name='annoter'),
+    path('', views.home, name="home"),
+    path('alignment/', views.alignment, name="alignment"),
     path('AddGenome/', views.AddGenome, name="AddGenome"),
     path('AboutUs/', views.AboutUs, name="AboutUs"),
     path('contact/', views.contact, name="contact"),
-])
+    path('FAQ/', views.FAQ, name='FAQ'),
+    ])
 
 # From a sequence
 urlpatterns.extend([
-    path('search/sequence/<str:id>', views.SequenceView, name='sequence'),
-    path('Parser/<str:id>/', views.Parser, name="Parser"),
+    path('alignment/<str:id>/', views.alignment, name="alignment"),
     path('annoter/<str:id>/', views.ANNOT, name="ANNOT"),
-    path('search/genome/<str:id>', views.GenomeView, name='genome'),
-])
+    path('sequence/<str:id>/', views.SequenceView, name='sequence'),
+    path('sequence/<str:id>/Parser/', views.Parser, name="Parser"),
+    path('sequence/<str:id>/annoter/', views.ANNOT, name="annotate"),
+    path('annotation/<str:id>/valid/', views.Valid_Annotation, name="valid_annotation"),
+    path('annotation/<str:id>/delete/', views.Delete_Annotation, name="delete_annotation"),
+    path('sequence/<str:id>/assign/', views.Assign, name='assign'),
+    path('genome/<str:id>', views.GenomeView, name='genome'),
+    ])
 
 # Registration and account management
 urlpatterns.extend([
@@ -54,11 +51,14 @@ urlpatterns.extend([
     path('validate_email', views.validate_email, name='validate_email'),
     path('validate_password', views.validate_password, name='validate_password'),
     path('account/<str:id>', views.AccountView, name='account'),
-    path('account/modification/', views.AccountModificationView, name='account_modification'),
+    path('account/<str:id>/add_friend/', views.AddToFavorites, name='add_friend'),
+    path('account/<str:id>/remove_friend/', views.RemoveFromFavorites, name='remove_friend'),
+    path('account/<str:id>/promote_to_annotator/', views.PromoteToAnnotator, name='promote_to_annotator'),
+    path('account/<str:id>/promote_to_validator/', views.PromoteToValidator, name='promote_to_validator'),
+    path('account/<str:id>/promote_to_admin/', views.PromoteToAdmin, name='promote_to_admin'),
+    path('account/<str:id>/downgrade/', views.Downgrade, name='downgrade'),
     path('members/', views.MembersView, name='members'),
-    path('account/add_friend/<str:id>', views.AddToFavorites, name='add_friend'),
-    path('account/remove_friend/<str:id>', views.RemoveFromFavorites, name='remove_friend'),
-])
+    ])
 
 urlpatterns += static(settings.STATIC_URL,
                       document_root=settings.STATIC_ROOT)

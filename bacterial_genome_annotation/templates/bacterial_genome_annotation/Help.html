@@ -1,0 +1,141 @@
+{% extends 'bacterial_genome_annotation/Base.html' %}
+{% block content %}
+{% load static %}
+		<div class="sectionTitle">LADN</div>
+		<div class="helpContent">LADN is a website project designed to let users add, modify and annotate genomes or sequences depending on their permissions. Another goal of this website is to be able to blast a sequence against our database.
+			<br>
+		</div>
+		<div class="sectionTitle">How it works</div>
+
+			<div class="helpContent">
+				When you access our website, you first land on our search page, because most of the actions that a random user would need usually require a sequence or a genome. You can notice a sidebar on the left side of the screen, which displays different menus: 
+				<ul>
+					<li>The "Features" menu</li>
+					<li>The "Connexion" menu</li>
+					<li>The "About us" menu</li>
+					<li>The "Help" menu</li>
+				</ul>
+				<br>
+				The "Features" menu displays all the possible actions for a user, but clicking on some actions such as "Annotate" requires to be logged in and to have the permissions to access the page (you have to at least be an annotator). The connexion menu displays two options if you are not logged: "Sign in" and "Sign up". If you are logged in, it gives you the possibility to either log out or access your account information.
+				The "About us" menu gives you the possibility to either contact us if you have a message for us (weather it's a bug or a suggestion, we'd gladly take any message from you!) or to learn more about the developpment team. Finally, the "Help" menu gives you access to this user guide and to an FAQ if you have any question regarding the use of this website. 
+			</div>
+			<div class="sectionTitle">Pages</div>
+			<div class="helpContent">
+				<br>
+				<div class="row">
+					<div class="col-md-4">
+					  <div class="card" style="width: 25rem;">
+						  <div class="card-body">
+							<h5 class="card-title">Sign in</h5>
+							<p class="card-text">The sign in page takes requires you to enter your email address and your password. If you entered the correct information, you will be granted access to every feature relevent to your role. <br><br><br><br><br><br><br><br><br><br><br><br></p>
+							<a href="{% url 'login' %}" class="btn btn-primary">Sign in</a>
+						  </div>
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="card" style="width: 25rem;">
+							<div class="card-body">
+							  <h5 class="card-title">Sign up</h5>
+							  <p class="card-text">The sign up page requires you to enter the following information: your email address, password (which has to be strong enough), your name, surname and phone number. All these information will be stored in our database and accessible by the other members of our website. The default role you will be attributed is reader, and can be upgraded by any user with a higher status. This means that
+								an annotator can pass you from reader to annotator, then a validator can make you validator and finally, you'll be able to get the admin rank if a root user makes you admin.  
+							  </p>
+							  <a href="{% url 'signup' %}" class="btn btn-primary">Sign up</a>
+							</div>
+						  </div>
+					  </div>
+					  <div class="col-md-4">
+						<div class="card" style="width: 25rem;">
+							<div class="card-body">
+							  <h5 class="card-title">Annotate</h5>
+							  <p class="card-text">The annotate page is a page that's only accessible to annotators or higher ranked users. The goal of this page for the user is to give him the opportunity to annotate genomes thanks to a basic form we implemented.
+								In order to do that, the user has to select the ID of the genome he will annotate, and can then input the gene's name, biotype, transcript biotype and symbol. Finally, he can input a brief description (200 caracters) of the gene's information. 
+								Once all the information are given, a reviewer will check the annotation before publishing it on the website.<br><br></p>
+							  <a href="{% url 'annotate' id='0' %}" class="btn btn-primary">Annotate</a>
+							</div>
+						  </div>
+					  </div>
+					  <div class="col-md-4">
+						<div class="card" style="width: 25rem;">
+							<div class="card-body">
+							  <h5 class="card-title">Add genome</h5>
+							  <p class="card-text">This page is meant to send fasta files inputed by the user with the genome ID, a description file of the coding sequence of the genome and a description file of the resulting peptide.<br><br><br><br><br></p>
+							  <a href="{% url 'AddGenome' %}" class="btn btn-primary">Add genome</a>
+							</div>
+						  </div>
+					  </div>
+					  <div class="col-md-4">
+						<div class="card" style="width: 25rem;">
+							<div class="card-body">
+							  <h5 class="card-title">Parse</h5>
+							  <p class="card-text">The goal of the parse page is to align an input sequence given by the user on our database. It returns all the genomes containing the query given by the user.<br><br><br><br><br><br></p>
+							  <a href="{% url 'Parser' id='0' %}" class="btn btn-primary">Parse</a>
+							</div>
+						  </div>
+					  </div>
+					  <div class="col-md-4">
+						<div class="card" style="width: 25rem;">
+							<div class="card-body">
+							  <h5 class="card-title">Search</h5>
+							  <p class="card-text">The search function looks for a k-mer or a motif in our database. It takes multiple entries that are all optional. After the research is done, our website will display a result page containing all the sequences matching or search. We can then click on a genome that we find interesting and check the information about it.</p>
+							  <a href="{% url 'search' %}" class="btn btn-primary">Search</a>
+							</div>
+						  </div>
+					  </div>
+					  <div class="col-md-4">
+						<div class="card" style="width: 25rem;">
+							<div class="card-body">
+							  <h5 class="card-title">Members</h5>
+							  <p class="card-text">The members page is designed to gave all registered users access to the contact information about the other people. That way, a validator can assign some sequences to be annotated to any annotator, and anyone can contact the person who wrote an annotation if they need some clarification about it.</p>
+							  <a href="{% url 'members' %}" class="btn btn-primary">Members</a>
+							</div>
+						  </div>
+					  </div>
+					  <div class="col-md-4">
+						<div class="card" style="width: 25rem;">
+							<div class="card-body">
+							  <h5 class="card-title">FAQ</h5>
+							  <p class="card-text">The current FAQ page is designed to answer frequently asked questions about our website. In the near futur, we plan to add a feature where a member can ask about a problem he encounters, and maybe add a replying possibility to turn that page into a forum for our community.</p>
+							  <a href="{% url 'FAQ' %}" class="btn btn-primary">FAQ</a>
+							</div>
+						  </div>
+					  </div>
+					  <div class="col-md-4">
+						<div class="card" style="width: 25rem;">
+							<div class="card-body">
+							  <h5 class="card-title">Contact</h5>
+							  <p class="card-text">The contatct page is made to contact our team if you notice a problem on our website or if you have an idea that you want to submit to improve it. We hope that this format gives us the opportunity to improve our website in order to make it the best experience for you! <br><br></p>
+							  <a href="{% url 'contact' %}" class="btn btn-primary">Contact</a>
+							</div>
+						  </div>
+					  </div>
+				</div>
+				<br>
+			</div>
+			<div class="sectionTitle">Roles</div>
+			<div class="helpContent">
+				<br>
+				<ul>
+				<li>Reader (default role)</li>
+				<li>Annotator (role assigned by another annotator or someone with a higher rank)</li>
+				<li>Validateur (rôle assigned by another validator or an administrator) </li>
+				</ul>
+			</div>
+			<div class="sectionTitle">Visual representation of our website</div>
+			<div class="helpContent">	
+				<img src="{% static 'bacterial_genome_annotation/schema_web.png' %}" alt="MSchema_web">
+			</div>
+			<div class="sectionTitle">Next upgrades</div>
+			<div class="helpContent">
+				The upcoming features that we want to incorporate in our website are the following:
+				<ul>
+					<li>Modifying the FAQ page in order to make it an interactive forum for our users</li>
+					<li>Make an assignment system for the annotators to distribute the non annotated sequences</li>
+					<li>Add a dark theme</li>
+				</ul>
+			</div>
+
+		
+
+
+		This project was made by Axel, Louis, Nouhayla and Djamel, four students in the AMI2B Masters of Science at Paris Saclay university.  </p>
+{% endblock %}

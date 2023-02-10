@@ -1,3 +1,7 @@
+"""
+This is the models file. It contains the models as they are implemented in the database.
+"""
+
 from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.utils import timezone
@@ -66,6 +70,16 @@ class Annotation(models.Model):
         User, on_delete=models.SET_NULL, null=True, related_name="annotationForValidator")
 
 
+class Assignation(models.Model):
+    validator = models.ForeignKey(User, on_delete=models.CASCADE, related_name="assignationForValidator")
+    annotator = models.ForeignKey(User, on_delete=models.CASCADE, related_name="assignationForAnnotator")
+    sequence = models.ForeignKey(Sequence, on_delete=models.CASCADE)
+    date = models.DateTimeField(default=timezone.now)
+    isRevision = models.BooleanField(default=False)
+    isValidated = models.BooleanField(default=False)
+    isAnnotated = models.BooleanField(default=False)
+
+
 class BlastResult(models.Model):
     id = models.CharField(max_length=100, primary_key=True)
     isCds = models.BooleanField(default=True)
@@ -76,16 +90,24 @@ class BlastResult(models.Model):
 
 class BlastHit(models.Model):
     id = models.CharField(max_length=100, primary_key=True)
-    num = models.IntegerField()
+    num = models.IntegerField(default=0)
     definition = models.CharField(max_length=100)
     accession = models.CharField(max_length=50)
-    len = models.IntegerField()
-
+    len = models.IntegerField(default=0)
     value = models.IntegerField(null=True)
     identitie = models.IntegerField(null=True)
-    # ident = models.IntegerField(null=True)
-    # lenn = models.IntegerField(null=True)
-
+    full = models.TextField(null=True)
+    align_length = models.IntegerField(default=0)
+    query = models.TextField(null=True)
+    query_end = models.IntegerField(default=0)
+    query_start = models.IntegerField(default=0)
+    subject = models.TextField(null=True)
+    score = models.IntegerField(default=0)
+    gaps = models.IntegerField(default=0)
+    match = models.TextField(null=True)
+    subject_start = models.IntegerField(default=0)
+    subject_end = models.IntegerField(default=0)
+    
     blastResult = models.ForeignKey(BlastResult, on_delete=models.CASCADE)
 
 
